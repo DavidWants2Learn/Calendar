@@ -7,6 +7,11 @@
           <!-- {{myDate}} -->
         </h1>
       </div>
+      <div class="buttons">
+        <button class="decrement" @click="decrement()">-</button>
+          {{counter}}
+        <button class="increment" @click="increment()">+</button>
+      </div>
       <thead>
         <tr id="weekHeaderID">
           <th class="weekHeader">Sunday</th>
@@ -82,11 +87,26 @@
 
 export default {
   name: "Calendar",
+  data() {
+    return {
+      counter: 0,
+    }
+  },
   methods: {
+    increment() {
+      this.counter++;
+      console.log(this.counter);
+    },
+    decrement() {
+      this.counter--;
+      console.log(this.counter)
+    },
     placeDatesOnCalendar (numDaysInMonth, startingDay) {
       var dayOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       var weekIncrementer = 1;
       const daysInAWeek = 7;
+
+      // this.counter;
       
       var thisWeek;
       var target;
@@ -98,9 +118,12 @@ export default {
       for (dayIndex; dayIndex < numDaysInMonth; dayIndex++) {
         var currentWeek = (startingDay+dayIndex)%daysInAWeek;
 
+        // Increment week when counter is 0;
         if ((currentWeek) == 0) {
           weekIncrementer++;
         }
+
+        // If calendar day matches current day highlight blue and turn text white.
         if (dayIndex+1 == (new Date().getDate())) {
           console.log("check for Current Day")
 
